@@ -4,7 +4,7 @@ fc = '\033[0;0m'
 no_mark = '\n\033[31m'+"✖"
 yes_mark = '\n\033[32m'+"✔"
 
-resp = 0
+resp = 6
 
 nome = ''
 desc = ''
@@ -23,7 +23,7 @@ while resp != '':
     print('[2] Consultar')
     print('[3] Atualizar')
     print('[4] Limpar')
-    print('[5] Sair')
+    print('[0] Sair')
     print("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-="+fc)
     resp = input("Opção > ")
     if resp == "1":
@@ -163,7 +163,7 @@ while resp != '':
                 print(yes_mark, "Todos os campos foram limpos com sucesso")
             else:
                 print(no_mark,"Opção inválida")
-    elif resp == "5":
+    elif resp == "0":
         resp3 = input("Clique [ENTER] para sair, para cancelar a ação tecle [c]")
         if resp3 == "c" or resp3 == "C":
             print(yes_mark, "Ação cancelada")
