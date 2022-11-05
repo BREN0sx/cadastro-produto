@@ -1,3 +1,11 @@
-#  Sistema de Cadastro de Produto 
+## Sistema de Cadastro de Produto 
+## Trabalho LP-01
+- Disciplina: `Lógica de Programação`
+- Linguagem: `Python`
+- Equipe: `Breno Kelvin e Gustavo Bandeira`
 
-https://youtu.be/RUpfQ5u9rGQ
+## Objetivos
+- Aplicação dos conhecimentos e aprendizagens de forma prática e conceitual, desbravando habilidades em equipe
+- Criação de um CRUD de cadastro, sessão de produtos
+
+- Explicativo: https://youtu.be/RUpfQ5u9rGQ
