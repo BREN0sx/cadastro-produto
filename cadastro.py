@@ -281,4 +281,3 @@ while True:
             clear()
             print(yes_mark, "Programa finalizado"+fc)
             break
-            
