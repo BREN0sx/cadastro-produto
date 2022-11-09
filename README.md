@@ -1,11 +1,11 @@
-## Trabalho LP-01
+## Trabalho LP-03
 - Disciplina: `Lógica de Programação`
 - Linguagem: `Python`
-- Equipe: Breno Kelvin e Gustavo Bandeira
+- Equipe: Breno Kelvin
 
 ## Objetivos
-- Aplicação dos conhecimentos e aprendizagens de forma prática e conceitual, desbravando habilidades em equipe
+- Aplicação dos conhecimentos e aprendizagens de forma prática e conceitual
 - Criação de um CRUD de cadastro, sessão de produtos
 
 ## Sistema de Cadastro de Produto
-- Explicativo: https://youtu.be/RUpfQ5u9rGQ
+- Explicativo: 
