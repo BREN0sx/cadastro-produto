@@ -1,5 +1,9 @@
 #Limpar terminal
-import defs
+import os
+
+
+def clear():
+    os.system("cls")
 
 # Estilização
 fb = '\033[93m'
@@ -7,6 +11,15 @@ fc = '\033[0;0m'
 no_mark = '\n\033[31m'+"✖"
 yes_mark = '\n\033[32m'+"✔"
 plural = "s"
+
+# Painel 
+addProduct = fb+"=-=-=-= ADICIONAR PRODUTO =-=-=-="+fc
+correctField = fb+"=-=-=-= CORRIGIR DADOS =-=-=-="+fc
+consult = fb+"=-=-=-= CONSULTAR DADOS =-=-=-="+fc
+delPanel = fb+"=-=-=-=-= LIMPAR DADOS =-=-=-=-="+fc
+attField = fb+"=-=-=-= ATUALIZAR DADOS =-=-=-="+fc
+endSlash = fb+("=-"*15)+"="+fc
+subSlash = fb+("-"*31)+fc
 
 noStock = "\n    Sem produto cadastrado\n"
 backBtn = fb+"[ENTER] Voltar"+fc
@@ -17,25 +30,30 @@ nameC = ""; descC = ""; sessionC = ""; stockC = ""; priceC = ""
 while True:
     id = len(dados)
         
-    defs.clear()
-    defs.menuTitle("main")
-    defs.menuFooter("end")
+    clear()
+    print(fb+"=-=-=-= PAINEL PRODUTO =-=-=-=")
+    print('[1] Adicionar')
+    print('[2] Consultar')
+    print('[3] Atualizar')
+    print('[4] Limpar')
+    print('[0] Sair')
+    print(endSlash)
     resp = input("Opção > ")
     
     if resp == "1":
-        defs.clear()
-        defs.menuTitle("add")
+        clear()
+        print(addProduct)
         qp = int(input("\nQuantidade de produtos a ser adicionado: "))
         cont = 0
         while qp <= 0:
-            defs.clear()
-            defs.menuTitle("add")
+            clear()
+            print(addProduct)
             print(no_mark, "Quantidade inválida", fc)
             qp = int(input("\nQuantidade de produtos a ser adicionado: "))
         while cont < qp:
             sn = ""
-            defs.clear()
-            defs.menuTitle("add")
+            clear()
+            print(addProduct)
             print((" "*11)+fb+"CADASTRO", id, fc)
             dados.append([id, name, desc, session, stock, price])
             while dados[id][1] == "":
@@ -58,11 +76,11 @@ while True:
                 price = float(input("Preço: "))
                 dados.pop(-1)
                 dados.append([id, name, desc, session, stock, price])
-            defs.menuFooter("end")
+            print(endSlash)
             sn = input(fb+"[Enter] Confirmar | [C] Corrige"+fc+"\n> ")
             if (sn == "c" or sn == "C"):
-                defs.clear()
-                defs.menuTitle("revise")
+                clear()
+                print(correctField)
                 print(fb+"\n[Enter] Não alterar\n"+fc)
                 nameC = input("Nome(%s): " %name)
                 descC = input("Descrição(%s): " %desc)
@@ -83,57 +101,65 @@ while True:
             nameC = ""; descC = ""; sessionC = ""; stockC = ""; priceC = ""
             cont += 1
             id += 1
-        defs.clear()
-        defs.menuTitle("add")
+        clear()
+        print(addProduct)
         if (cont == 1):
-            print(yes_mark, cont, "produto foi computado com sucesso\n"+fb)
+            print(yes_mark, cont, "produto foi computado com sucesso"+fb)
         else:
-            print(yes_mark, cont, "produtos foram computados com sucesso\n"+fb)
-        defs.menuFooter("end")
+            print(yes_mark, cont, "produtos foram computados com sucesso"+fb)
+        print("\n"+endSlash)
         input(backBtn)
     elif resp == "2":
-        defs.clear()
-        defs.menuTitle("read")
+        clear()
+        print(consult)
         print('[1] Consulta por ID')
         print('[2] Consulta Geral')
-        defs.menuFooter("end")
+        print(endSlash)
         option = input("Opção > ")
         if option == "1":
-            defs.clear()
-            defs.menuTitle("read")
+            clear()
+            print(consult)
             productId = int(input("ID: "))
             if (productId >= id) or (productId <= 0): 
-                defs.clear()
-                defs.menuTitle("read")
+                clear()
+                print(consult)
                 print(no_mark, "[%d] ID Inválido\n" %productId)
             else: 
-                defs.menuFields(dados, productId)
-            defs.menuFooter("end")
+                print("Nome:", dados[productId][1])
+                print("Descrição:", dados[productId][2])
+                print("Categoria:", dados[productId][3])
+                print("Estoque: %d" %(dados[productId][4] or 0))
+                print("Preço: R$%.2f" %(dados[productId][5] or 0))
+            print(endSlash)
             input(backBtn)
         elif option == "2":
-            defs.clear()
-            defs.menuTitle("read")
+            clear()
+            print(consult)
             if id == 1:
                 print(noStock)
             else:
                 cont = 1
                 while id > cont:
                     print("ID:", cont)
-                    defs.menuFields(dados, cont)
+                    print("Nome:", dados[cont][1])
+                    print("Descrição:", dados[cont][2])
+                    print("Categoria:", dados[cont][3])
+                    print("Estoque: %d" %(dados[cont][4] or 0))
+                    print("Preço: R$%.2f" %(dados[cont][5] or 0))
                     cont += 1
                     if (cont != id):
-                       defs.menuFooter("sub") 
-            defs.menuFooter("end")
+                       print(subSlash) 
+            print(endSlash)
             input(backBtn)
         else:
-            defs.clear()
-            defs.menuTitle("read")
+            clear()
+            print(consult)
             print(no_mark, "Opção inválida\n")
-            defs.menuFooter("end")
+            print(endSlash)
             input(backBtn)
     elif resp == "3":
-        defs.clear()
-        defs.menuTitle("update")
+        clear()
+        print(attField)
         if len(dados) == 1:
                 print(noStock)
         else:
@@ -161,23 +187,23 @@ while True:
                     print(no_mark, "Nenhum dado foi alterado")
                 else:
                     print(yes_mark, "Dados fornecidos foram atualizados")
-        defs.menuFooter("end")
+        print(endSlash)
         input(backBtn)
     elif resp == "4":
-        defs.clear()
-        defs.menuTitle("del")
+        clear()
+        print(delPanel)
         if id == 1:
             print(noStock)
-            defs.menuFooter("end")
+            print(endSlash)
             input(backBtn)
         else:
             print('[1] Limpar por ID')
             print('[2] Limpar Registros')
-            defs.menuFooter("end")
+            print(endSlash)
             option = input("Opção > ")
             if option == "1":
-                defs.clear()
-                defs.menuTitle("del")
+                clear()
+                print(delPanel)
                 productId = int(input("ID: "))
                 if (productId > id) or (productId <= 0): 
                     print(no_mark, "ID Inválido")
@@ -189,10 +215,10 @@ while True:
                     print('[4] Limpar | Estoque: %d' %(dados[productId][4] or 0))
                     print('[5] Limpar | Preço: R$%.2f' %(dados[productId][5] or 0))
                     print('[6] Limpar Tudo')
-                    defs.menuFooter("end")
+                    print(endSlash)
                     optionDel = input("Opção > ")
-                    defs.clear()
-                    defs.menuTitle("del")
+                    clear()
+                    print(delPanel)
                     if optionDel == "1":
                         dados[productId][1] = ""
                         print(yes_mark, "[ID %d] Nome, limpo com sucesso\n" %productId)
@@ -213,41 +239,45 @@ while True:
                         print(yes_mark, "[ID %d] Todos os campos foram limpos\n" %productId)
                     else:
                         print(no_mark, "Opção inválida\n")
-                    defs.menuFooter("end")
+                    print(endSlash)
                     input(backBtn)
             if option == "2":
-                defs.clear()
-                defs.menuTitle("del")
+                clear()
+                print(delPanel)
                 cont = 1
                 while id > cont:
                     print("ID:", cont)
-                    defs.menuFields(dados, cont)
+                    print("Nome:", dados[cont][1])
+                    print("Descrição:", dados[cont][2])
+                    print("Categoria:", dados[cont][3])
+                    print("Estoque: %d" %(dados[cont][4] or 0))
+                    print("Preço: R$%.2f" %(dados[cont][5] or 0))
                     cont += 1
                     if (cont != id):
-                       defs.menuFooter("sub") 
+                       print(subSlash) 
                 if len(dados) == 2:
                     plural = ""
-                defs.menuFooter("end")
-                print("Prestes a remover: %d registro%s\n" % ((len(dados)-1), plural((len(dados)-1),"s")))
+                print(endSlash)
+                print("Prestes a remover: %d registro%s\n" % ((len(dados)-1), plural))
                 print(fb+"[S] Prosseguir | [ENTER] Cancelar"+fc)
                 confirm = input("> ")
-                defs.clear()
-                defs.menuTitle("del")
+                clear()
+                print(delPanel)
                 if confirm == "S" or confirm == "s":
                     print(yes_mark, "%d registro%s removido%s\n" % ((len(dados)-1), plural, plural))
                     dados = [[]]
                 else: 
                     print(yes_mark, "Ação cancelada\n")
-                defs.menuFooter("end")
+                print(endSlash)
                 input(backBtn)
     elif resp == "0":
-        defs.clear()
+        clear()
         print(resp)
         print(fb+"[ENTER] Sair | [C] Cancelar"+fc)
         respf = input("> ")
         if (respf == "c") or (respf == "C"):
-            defs.clear()
+            clear()
         else:
-            defs.clear()
+            clear()
             print(yes_mark, "Programa finalizado"+fc)
             break
