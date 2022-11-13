@@ -8,4 +8,4 @@
 - Criação de um CRUD de cadastro, sessão de produtos
 
 ## Sistema de Cadastro de Produtos
-- Explicativo: 
+- Explicativo: https://youtu.be/i5-guRyQDvM
