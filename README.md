@@ -7,5 +7,4 @@
 - Aplicação dos conhecimentos e aprendizagens de forma prática e conceitual
 - Criação de um CRUD de cadastro, sessão de produtos
 
-## Sistema de Cadastro de Produto
-- Explicativo: 
+## Sistema de Cadastro de Produtos
