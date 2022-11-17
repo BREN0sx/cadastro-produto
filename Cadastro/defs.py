@@ -1,4 +1,4 @@
-import os
+import os #https://docs.python.org/3/library/os.html
 
 fb = '\033[93m'
 fc = '\033[0;0m'
