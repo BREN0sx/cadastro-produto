@@ -5,8 +5,8 @@ fb = '\033[93m'; fc = '\033[0;0m'; no_mark = '\n\033[31m'+"✖"; yes_mark = '\n\
 noStock = "\n    Sem produto cadastrado\n"; backBtn = fb+"[ENTER] Voltar"+fc
 #=-=-=-=-=-=
 
-ler_cadastro = open("Cadastro/dados.txt", 'r', encoding="utf-8")
-dados = eval(ler_cadastro.read())
+ler_cadastro = open("dados.txt", 'r', encoding="utf-8")
+dados = eval(ler_cadastro.read()) #https://docs.python.org/3/library/functions.html
 
 name, desc, session, stock, price = ("", "", "", "", "")
 nameC, descC, sessionC, stockC, priceC = ("", "", "", "", "")
@@ -249,6 +249,6 @@ while True:
             print(yes_mark, "Programa finalizado"+fc)
             break
     ler_cadastro.close()        
-    arquivo_cadastro = open("Cadastro/dados.txt", 'w+', encoding="utf-8")
+    arquivo_cadastro = open("dados.txt", 'w+', encoding="utf-8")
     arquivo_cadastro.write("%s" %dados)
     arquivo_cadastro.close()
