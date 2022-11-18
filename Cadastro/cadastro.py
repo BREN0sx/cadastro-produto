@@ -1,12 +1,11 @@
-import defs
+# type: ignore >> https://mypy.readthedocs.io/en/stable/common_issues.html#ignoring-a-whole-file
 
-#Estilização
-fb = '\033[93m'; fc = '\033[0;0m'; no_mark = '\n\033[31m'+"✖"; yes_mark = '\n\033[32m'+"✔"
+import defs
+fb, fc, no_mark, yes_mark, plural = ('\033[93m', '\033[0;0m', '\n\033[31m'+"✖", '\n\033[32m'+"✔", "s") 
 noStock = "\n    Sem produto cadastrado\n"; backBtn = fb+"[ENTER] Voltar"+fc
-#=-=-=-=-=-=
 
 ler_cadastro = open("dados.txt", 'r', encoding="utf-8")
-dados = eval(ler_cadastro.read()) #https://docs.python.org/3/library/functions.html
+dados = eval(ler_cadastro.read()) # >> https://docs.python.org/3/library/functions.html#eval
 
 name, desc, session, stock, price = ("", "", "", "", "")
 nameC, descC, sessionC, stockC, priceC = ("", "", "", "", "")
@@ -22,13 +21,12 @@ while True:
     if resp == "1":
         defs.clear()
         defs.menuTitle("add")
-        qp = int(input("\nQuantidade de produtos a ser adicionado: "))
-        cont = 0
+        cont, qp = (0,0)
         while qp <= 0:
-            defs.clear()
-            defs.menuTitle("add")
-            print(no_mark, "Quantidade inválida", fc)
-            qp = int(input("\nQuantidade de produtos a ser adicionado: "))
+            qp = input("\nQuantidade de produtos a ser adicionado: ")
+            qp = defs.rtnValue(qp, 1)
+            if qp <= 0:
+                qp = 1
         while cont < qp:
             sn = ""
             defs.clear()
@@ -48,11 +46,13 @@ while True:
                 dados.pop(-1)
                 dados.append([id, name, desc, session, stock, price])
             while dados[id][4] == "":
-                stock = int(input("Estoque: "))
+                stock = input("Estoque: ")
+                stock = defs.rtnValue(stock, 1)
                 dados.pop(-1)
                 dados.append([id, name, desc, session, stock, price])
             while dados[id][5] == "":
-                price = float(input("Preço: "))
+                price = input("Preço: ")
+                price = defs.rtnValue(price, 2)
                 dados.pop(-1)
                 dados.append([id, name, desc, session, stock, price])
             defs.menuFooter("end")
@@ -73,9 +73,9 @@ while True:
                 if sessionC != "":
                    dados[id][3] = sessionC
                 if stockC != "":
-                   dados[id][4] = int(stockC)
+                   dados[id][4] = defs.rtnValue(stockC, 1)
                 if priceC != "":
-                   dados[id][5] = float(priceC)
+                   dados[id][5] = defs.rtnValue(priceC, 2)
             name, desc, session, stock, price = ("", "", "", "", "")
             nameC, descC, sessionC, stockC, priceC = ("", "", "", "", "")
             cont += 1
@@ -98,7 +98,8 @@ while True:
         if option == "1":
             defs.clear()
             defs.menuTitle("read")
-            productId = int(input("ID: "))
+            productId = input("ID: ")
+            productId = defs.rtnValue(productId, 1)
             if (productId >= id) or (productId <= 0) or (dados[productId] == [productId]): 
                 defs.clear()
                 defs.menuTitle("read")
@@ -110,7 +111,7 @@ while True:
         elif option == "2":
             defs.clear()
             defs.menuTitle("read")
-            if defs.removedIDs(dados) == 1:
+            if defs.removedIDs(dados) == 0 or defs.removedIDs(dados) == None:
                 print(noStock)
             else:
                 cont = 1
@@ -132,12 +133,13 @@ while True:
     elif resp == "3":
         defs.clear()
         defs.menuTitle("update")
-        if defs.removedIDs(dados) == 1:
+        if defs.removedIDs(dados) == 0 or defs.removedIDs(dados) == None:
                 print(noStock)
         else:
-            productId = int(input(fc+"\nID do produto a atualizar: "))
-            if (productId > id) or (productId <= 0) or (dados[productId] == [productId]): 
-                print(no_mark, "ID Inválido")
+            productId = input(fc+"\nID do produto a atualizar: ")
+            productId = defs.rtnValue(productId, 1)
+            if (productId >= id) or (productId <= 0) or (dados[productId] == [productId]): 
+                print(no_mark, "[%d] ID Inválido\n" %productId)
             else:
                 print(fb+"\n[Enter] Não alterar\n"+fc)
                 nameA = input("Nome(%s): " %dados[productId][1])
@@ -152,9 +154,9 @@ while True:
                 if sessionA != "":
                    dados[productId][3] = sessionA
                 if stockA != "":
-                   dados[productId][4] = int(stockA)
+                   dados[productId][4] = defs.rtnValue(stockA, 1)
                 if priceA != "":
-                   dados[productId][5] = float(priceA)
+                   dados[productId][5] = defs.rtnValue(priceA, 2)
                 if (priceA == "") and (stockA == "") and (sessionA == "") and (descA == "") and (nameA == ""):
                     print(no_mark, "Nenhum dado foi alterado")
                 else:
@@ -164,7 +166,8 @@ while True:
     elif resp == "4":
         defs.clear()
         defs.menuTitle("del")
-        if defs.removedIDs(dados) == 1:
+        if defs.removedIDs(dados) == 0 or defs.removedIDs(dados) == None:
+            
             print(noStock)
             defs.menuFooter("end")
             input(backBtn)
@@ -176,9 +179,10 @@ while True:
             if option == "1":
                 defs.clear()
                 defs.menuTitle("del")
-                productId = int(input("ID: "))
-                if (productId > id) or (productId <= 0) or (dados[productId] == [productId]): 
-                    print(no_mark, "ID Inválido\n")
+                productId = input("ID: ")
+                productId = defs.rtnValue(productId, 1)
+                if (productId >= id) or (productId <= 0) or (dados[productId] == [productId]): 
+                    print(no_mark, "[%d] ID Inválido\n" %productId)
                     input(backBtn)
                 else: 
                     print('[1] Limpar | Nome:', dados[productId][1])
@@ -239,7 +243,6 @@ while True:
                 input(backBtn)
     elif resp == "0":
         defs.clear()
-        print(resp)
         print(fb+"[ENTER] Sair | [C] Cancelar"+fc)
         respf = input("> ")
         if (respf == "c") or (respf == "C"):
