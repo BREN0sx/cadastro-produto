@@ -1,13 +1,10 @@
-import os #https://docs.python.org/3/library/os.html
+# type: ignore
 
-fb = '\033[93m'
-fc = '\033[0;0m'
-no_mark = '\n\033[31m'+"✖"
-yes_mark = '\n\033[32m'+"✔"
-plural = "s"  # type: ignore
+import os # >> https://docs.python.org/3/library/os.html#os.system
+fb, fc, no_mark, yes_mark, plural = ('\033[93m', '\033[0;0m', '\n\033[31m'+"✖", '\n\033[32m'+"✔", "s")
 
 def clear():
-    os.system("cls")
+    os.system("cls" if os.name == "nt" else "clear")
 
 def menuTitle(name):
     if name == "add":
@@ -60,4 +57,12 @@ def removedIDs(dados):
         if ((dadosLen-1) == rep):
             return nb+1
         rep += 1
-    
+
+def rtnValue(value, type):
+    try: # >> https://docs.python.org/3/tutorial/errors.html#handling-exceptions
+        if type == 1:
+            return int(value)
+        if type == 2:
+            return float(value)
+    except ValueError:
+        return 0
