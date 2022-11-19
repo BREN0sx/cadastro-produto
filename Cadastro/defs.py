@@ -8,7 +8,7 @@ def clear():
 
 def menuTitle(name):
     if name == "add":
-        print(fb+"=-=-=-= ADICIONAR PRODUTO =-=-=-="+fc)
+        print(fb+("=-=-=-= ADICIONAR PRODUTO =-=-=-=")+fc)
     elif name == "revise":
         print(fb+"=-=-=-= CORRIGIR DADOS =-=-=-="+fc)
     elif name == "del":
@@ -28,9 +28,9 @@ def menuTitle(name):
         return
 
 def menuFields(dados, productId):
-    print("Nome:", dados[productId][1])
-    print("Descrição:", dados[productId][2])
-    print("Categoria:", dados[productId][3])
+    print("Nome:", dados[productId][1].capitalize())
+    print("Descrição:", dados[productId][2].capitalize())
+    print("Categoria:", dados[productId][3].capitalize())
     print("Estoque: %d" %(dados[productId][4] or 0))
     print("Preço: R$%.2f" %(dados[productId][5] or 0))
 
