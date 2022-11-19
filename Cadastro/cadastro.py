@@ -31,7 +31,7 @@ while True:
             sn = ""
             defs.clear()
             defs.menuTitle("add")
-            print((" "*9)+fb+"CADASTRO ID", id, fc)
+            print(fb, ("CADASTRO ID %s" %id).center(30), fc)
             dados.append([id, name, desc, session, stock, price])
             while dados[id][1] == "":
                 name = input("Nome: ")
@@ -57,13 +57,13 @@ while True:
                 dados.append([id, name, desc, session, stock, price])
             defs.menuFooter("end")
             sn = input(fb+"[Enter] Confirmar | [C] Corrige"+fc+"\n> ")
-            if (sn == "c" or sn == "C"):
+            if sn.lower() == "c": # >> https://docs.python.org/3/library/stdtypes.html#str.lower
                 defs.clear()
                 defs.menuTitle("revise")
                 print(fb+"\n[Enter] Não alterar\n"+fc)
-                nameC = input("Nome(%s): " %name)
-                descC = input("Descrição(%s): " %desc)
-                sessionC = input("Grupo(%s): " %session)
+                nameC = input("Nome(%s): " %name.capitalize()) # >> https://docs.python.org/3/library/stdtypes.html#str.capitalize
+                descC = input("Descrição(%s): " %desc.capitalize())
+                sessionC = input("Grupo(%s): " %session.capitalize())
                 stockC = input("Estoque(%d): " %(int(stock) or 0))
                 priceC = input("Preço(%.2f): " %(float(price) or 0))
                 if nameC != "":
@@ -142,9 +142,9 @@ while True:
                 print(no_mark, "[%d] ID Inválido\n" %productId)
             else:
                 print(fb+"\n[Enter] Não alterar\n"+fc)
-                nameA = input("Nome(%s): " %dados[productId][1])
-                descA = input("Descrição(%s): " %dados[productId][2])
-                sessionA = input("Grupo(%s): " %dados[productId][3])
+                nameA = input("Nome(%s): " %dados[productId][1].capitalize())
+                descA = input("Descrição(%s): " %dados[productId][2].capitalize())
+                sessionA = input("Grupo(%s): " %dados[productId][3].capitalize())
                 stockA = input("Estoque(%d): " %(dados[productId][4] or 0))
                 priceA = input("Preço(%.2f): " %(dados[productId][5] or 0))
                 if nameA != "":
@@ -185,9 +185,9 @@ while True:
                     print(no_mark, "[%d] ID Inválido\n" %productId)
                     input(backBtn)
                 else: 
-                    print('[1] Limpar | Nome:', dados[productId][1])
-                    print('[2] Limpar | Descrição:', dados[productId][2])
-                    print('[3] Limpar | Grupo:', dados[productId][3])
+                    print('[1] Limpar | Nome:', dados[productId][1].capitalize())
+                    print('[2] Limpar | Descrição:', dados[productId][2].capitalize())
+                    print('[3] Limpar | Grupo:', dados[productId][3].capitalize())
                     print('[4] Limpar | Estoque: %d' %(dados[productId][4] or 0))
                     print('[5] Limpar | Preço: R$%.2f' %(dados[productId][5] or 0))
                     print('[6] Limpar Tudo')
@@ -234,7 +234,7 @@ while True:
                 confirm = input("> ")
                 defs.clear()
                 defs.menuTitle("del")
-                if confirm == "S" or confirm == "s":
+                if confirm.lower() == "s":
                     print(yes_mark, "%d registro%s removido%s\n" % (defs.removedIDs(dados), defs.plural(dados), defs.plural(dados)))
                     dados = [[]]
                 else: 
@@ -245,7 +245,7 @@ while True:
         defs.clear()
         print(fb+"[ENTER] Sair | [C] Cancelar"+fc)
         respf = input("> ")
-        if (respf == "c") or (respf == "C"):
+        if respf.lower() == "c":
             defs.clear()
         else:
             defs.clear()
