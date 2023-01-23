@@ -1,7 +1,7 @@
-## Trabalho LP-02
+## Trabalho LP-01
 - Disciplina: `Lógica de Programação`
 - Linguagem: `Python`
-- Equipe: Breno, Alana e Arthur
+- Equipe: Breno e Gustavo Bandeira
 
 ## Objetivos
 - Aplicação dos conhecimentos e aprendizagens de forma prática e conceitual, desbravando habilidades em equipe
